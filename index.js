@@ -2,14 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 const miURL = "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro";
-//mongodb+srv://Anahi:<db_password>@intro.tuyod.mongodb.net/?retryWrites=true&w=majority&appName=intro
-//mongodb+srv://<username>:<password>@cluster0.mongodb.net/canciones?retryWrites=true&w=majority
 
 const app = express();
 const PORT = 3001;
 
-const path = require("path");
+
+
 app.use(express.static(path.join(__dirname,"./Public")))
 
 // Middleware
@@ -23,6 +23,28 @@ mongoose.connect(miURL, {
 })
 .then(() => console.log("Conectado a MongoDB Atlas"))
 .catch((error) => console.error("Error al conectar con MongoDB Atlas:", error));
+
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      const ACCEPTED_ORIGINS = [
+        "https://proyectofinal2-f11b.onrender.com",
+        "http://localhost:3001",
+      ];
+
+      if (ACCEPTED_ORIGINS.includes(origin)) {
+        return callback(null, true);
+      }
+      if (!origin) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS Baby!"));
+    },
+  })
+);
+app.disable("x-powered-by"); // Oculta el nobre de la biblioteca Express
+
 
 
 // Esquema de Canciones
