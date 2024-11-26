@@ -2,6 +2,12 @@
 
 const express = require('express')
 const router = express.Router()
+
+//extra
+const userRoute = require("./user.route");
+const albumRoute = require("./album.route");
+
+
 // trabajar desde aca
 router.get('/discos', async (req, res)=>{
     try {
@@ -17,6 +23,4 @@ router.get('/discos', async (req, res)=>{
 
 //hasta aca
 module.exports = router
-
-
 
