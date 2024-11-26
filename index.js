@@ -3,12 +3,13 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const dotenv = require('dotenv');
 const miURL = "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro";
 
 const app = express();
 const PORT = 3001;
 
-
+dotenv.config();
 
 app.use(express.static(path.join(__dirname,"./Public")))
 
