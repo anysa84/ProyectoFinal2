@@ -1,38 +1,29 @@
-
-
-
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const miURL ="mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro";
+const miURL = "mongodb+srv://magnus87:root1234@intro.tuyod.mongodb.net/canciones?retryWrites=true&w=majority&appName=intro";
 //mongodb+srv://Anahi:<db_password>@intro.tuyod.mongodb.net/?retryWrites=true&w=majority&appName=intro
 //mongodb+srv://<username>:<password>@cluster0.mongodb.net/canciones?retryWrites=true&w=majority
-
-
-
 
 const app = express();
 const PORT = 3001;
 
-
 const path = require("path");
 app.use(express.static(path.join(__dirname,"./Public")))
-
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
 // Conectar a MongoDB
-
 mongoose.connect(miURL, {
-
   //useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 .then(() => console.log("Conectado a MongoDB Atlas"))
 .catch((error) => console.error("Error al conectar con MongoDB Atlas:", error));
+
 
 // Esquema de Canciones
 const songSchema = new mongoose.Schema({
@@ -72,20 +63,19 @@ const userSchema = new mongoose.Schema({
     password: String,
 });
 
-const user = mongoose.model('user', userSchema);
+const User = mongoose.model('User', userSchema);
 
 // Ruta para registrar usuarios
 app.post('/register', async (req, res) => {
     try {
         const { nombre, apellido, apodo, email, password } = req.body;
-        const user = new user({ nombre, apellido, apodo, email, password });
+        const user = new User({ nombre, apellido, apodo, email, password });
         await user.save();
         res.status(201).send('Usuario registrado con éxito');
     } catch (error) {
         res.status(500).send('Error al registrar el usuario');
     }
 });
-
 
 // Endpoint para verificar login
 app.post('/login', async (req, res) => {
