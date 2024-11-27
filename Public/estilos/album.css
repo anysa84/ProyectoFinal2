@@ -52,6 +52,7 @@ body {
 
 }
 
+
 img {
   width: 20px;
   height: 300px;
@@ -311,6 +312,14 @@ ul {
 }
 
 
+
+
+div[ class="Agregar_tema"] {
+  color: #000000;
+
+}
+
+
 /* Estilos de la lista */ 
 #musicList { 
 
@@ -352,3 +361,12 @@ nav ul li a {
   text-decoration: none;
 }
     
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
